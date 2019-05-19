@@ -7,22 +7,12 @@ spec:
   template:
     metadata:
       name: prime-api-grpc
+      labels:
+        serving.knative.dev/visibility: cluster-local
     spec:
       containers:
-        - image:  github.com/vagababov/prime-server
+        - image: github.com/vagababov/prime-server
           ports:
             - name: h2c
               containerPort: 8081
       containerConcurrency: 15
-  traffic:
-  - revisionName: prime-api-pos
-    percent: 50
-  - revisionName: prime-api-neg
-    percent: 50
-  - tag: grpc-api
-    revisionName: prime-api-grpc
-    percent: 0
-  - tag: latest
-    latestRevision: true
-    percent: 0
-
